@@ -37,6 +37,6 @@ app.get("/", async (req, res) => {
 // Upload Route
 app.use("/upload", uploadRoute);
 
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on port ${PORT}`);
 });
