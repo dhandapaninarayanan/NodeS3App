@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>AWS S3 File Upload</title>
     <link rel="stylesheet" href="/style.css">
@@ -33,6 +34,16 @@
 
     <hr>
 
+    <h2>Dashboard</h2>
+
+    <p><strong>Total Files:</strong> <%= totalFiles %></p>
+
+    <p><strong>Total Storage:</strong> <%= totalStorage %></p>
+
+    <p><strong>AWS Region:</strong> <%= region %></p>
+
+    <hr>
+
     <h2>Uploaded Files</h2>
 
     <% if (files.length === 0) { %>
@@ -44,12 +55,14 @@
         <table>
 
             <thead>
+
                 <tr>
                     <th>File Name</th>
                     <th>Size</th>
                     <th>Last Modified</th>
                     <th>Action</th>
                 </tr>
+
             </thead>
 
             <tbody>
@@ -57,10 +70,13 @@
                 <% files.forEach(file => { %>
 
                     <tr>
+
                         <td><%= file.key %></td>
+
                         <td><%= file.size %></td>
+
                         <td><%= file.lastModified %></td>
-                        <td>
+
                         <td>
 
                             <form action="/upload/delete" method="POST">
@@ -76,10 +92,10 @@
                                     Delete
                                 </button>
 
-                             </form>
+                            </form>
 
                         </td>
-                        </td>
+
                     </tr>
 
                 <% }) %>
@@ -93,4 +109,5 @@
 </div>
 
 </body>
+
 </html>
