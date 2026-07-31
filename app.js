@@ -18,17 +18,35 @@ app.get("/", async (req, res) => {
 
     try {
 
-        const files = await listFiles();
+        const data = await listFiles();
 
-        console.log(files);   // <-- Add this line
+        res.render("index", {
 
-        res.render("index", { files });
+            files: data.files,
+
+            totalFiles: data.totalFiles,
+
+            totalStorage: data.totalStorage,
+
+            region: process.env.AWS_REGION
+
+});
 
     } catch (err) {
 
         console.error(err);
 
-        res.render("index", { files: [] });
+        res.render("index", {
+
+            files: [],
+
+            totalFiles: 0,
+
+            totalStorage: "0 Bytes",
+
+            region: process.env.AWS_REGION
+
+        });
 
     }
 

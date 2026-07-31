@@ -37,22 +37,35 @@ async function uploadFile(file) {
 async function listFiles() {
 
     const command = new ListObjectsV2Command({
+
         Bucket: process.env.AWS_BUCKET_NAME
+
     });
 
     const response = await s3Client.send(command);
 
     const files = response.Contents || [];
 
-    const mappedFiles = files.map(file => ({
-        key: file.Key,
-        size: formatFileSize(file.Size),
-        lastModified: formatDate(file.LastModified)
-    }));
+    const totalSize = files.reduce((sum, file) => sum + file.Size, 0);
 
-    console.log("Mapped Files:", mappedFiles);
+    return {
 
-    return mappedFiles;
+        files: files.map(file => ({
+
+            key: file.Key,
+
+            size: formatFileSize(file.Size),
+
+            lastModified: formatDate(file.LastModified)
+
+        })),
+
+        totalFiles: files.length,
+
+        totalStorage: formatFileSize(totalSize)
+
+    };
+
 }
 
 async function deleteFile(fileName) {
